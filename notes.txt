@@ -1,0 +1,21 @@
+postgres postgis first setup
+https://computingforgeeks.com/how-to-install-postgis-on-ubuntu-linux/
+https://www.digitalocean.com/community/tutorials/how-to-install-postgresql-on-ubuntu-20-04-quickstart
+
+https://ngauthier.com/2013/08/postgis-and-rails-a-simple-approach.html
+
+Countries seed
+http://climber2002.github.io/blog/2014/05/18/postgis-and-google-maps-in-rails-part-1/
+
+Postgis example
+https://pganalyze.com/blog/postgis-rails-geocoder
+
+Sidekiq scheduler
+https://github.com/moove-it/sidekiq-scheduler#loading-the-schedule
+
+Zeitwerk module loader(ignored)
+https://www.honeybadger.io/blog/ruby-code-loader-zeitwerk/
+
+# kaynaklar
+http://www.koeri.boun.edu.tr/scripts/lasteq.asp
+

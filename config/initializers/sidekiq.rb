@@ -1,0 +1,1 @@
+Sidekiq.logger = Logger.new('log/sidekiq.log')

@@ -1,0 +1,20 @@
+:concurrency: 5
+staging:
+  :concurrency: 10
+production:
+  :concurrency: 10
+:queues:
+  - critical
+  - default
+  - low
+
+:schedule:
+  BounEdu:
+    # cron: '0 * * * * *'   # Runs once per minute
+    queue: default
+    class: BounEduEarthquakesJob
+    include_metadata: true
+    every: 2 minutes
+    dead: false
+    retry: 1
+    enabled: false
