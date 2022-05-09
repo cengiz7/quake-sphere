@@ -9,13 +9,14 @@ class BounEduEarthquakesJob
     # depth=6.0, magnitude_type="ML", magnitude=1.9, location_desc="OKCULAR-BERGAMA (IZMIR)">]
 
     earthquakes.each do |e|
-      Earthquake.create!(
+      eq = Earthquake.new(
         lat: e.lat, long: e.long, time: e.time,
         depth: e.depth, magnitude: e.magnitude,
         magnitude_type: e.magnitude_type,
         location_desc: e.location_desc,
         data_source_id: data_source.id
       )
+      eq.save! unless eq.is_duplicate?
     end
   end
 end

@@ -10,6 +10,8 @@ class Earthquake < ApplicationRecord
   validates :depth, presence: true, numericality: true
   validates :magnitude, presence: true, numericality: true
   validates :time, presence: true
+  # prevent save the same record from the same data source
+  # validates_uniqueness_of :data_source, :scope => [:lat, :long, :depth, :magnitude, :time]
 
   before_create :associate_earthquake
 
@@ -25,5 +27,15 @@ class Earthquake < ApplicationRecord
     elsif near_quakes.many?
         self.main_id = near_quakes.min_by { |e| self.distance_to e }.id
     end
+  end
+
+  def is_duplicate?
+    s = self
+    Earthquake
+      .where("time between ? and ?", s.time-60, s.time+60)
+      .where(
+        lat: s.lat, long: s.long, depth: s.depth,
+        magnitude: s.magnitude, time: s.time,
+        data_source_id: s.data_source_id).any?
   end
 end
