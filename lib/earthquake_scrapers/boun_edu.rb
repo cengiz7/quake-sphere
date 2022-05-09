@@ -31,13 +31,13 @@ module BounEdu
         columns  = row.split
         time     = DateTime.parse(columns[0..1].join(' '))
         lat      = columns[2].to_f
-        lng      = columns[3].to_f
+        long     = columns[3].to_f
         depth    = columns[4].to_f
         mag_type, mag_val = parse_magnitude(columns[5..7])
         location = columns[8..-2].join(' ')
 
-        OpenStruct.new( time: time, lat: lat, lng: lng, depth: depth,
-                        type: mag_type, magnitude: mag_val, location_desc: location )
+        OpenStruct.new( time: time, lat: lat, long: long, depth: depth,
+          magnitude_type: mag_type, magnitude: mag_val, location_desc: location )
     end
   end
 

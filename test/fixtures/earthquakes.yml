@@ -5,13 +5,15 @@ one:
   long: 9.99
   depth: 9.99
   magnitude: 9.99
-  type: 
+  magnitude_type: ML
   location_desc: MyString
+  time: "2022-05-09 21:19:35 +0300"
 
 two:
   lat: 9.99
   long: 9.99
   depth: 9.99
   magnitude: 9.99
-  type: 
+  magnitude_type: ML
   location_desc: MyString
+  time: "2022-05-09 21:19:35 +0300"

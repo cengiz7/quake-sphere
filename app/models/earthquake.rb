@@ -2,6 +2,7 @@ class Earthquake < ApplicationRecord
   reverse_geocoded_by :lat, :long
 
   belongs_to :main, class_name: 'Earthquake', optional: true
+  belongs_to :data_source
   has_many :sub_records, class_name: 'Earthquake', foreign_key: 'main_id'
 
   validates :lat, presence: true, numericality: { in: -90..90 }

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class EarthquakeTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "earthquake_count" do
+    assert_equal 2, Earthquake.count
+  end
 end

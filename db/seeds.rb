@@ -1,3 +1,6 @@
+Earthquake.destroy_all
+
+# ANTALYA YAT LIMANI
 center_latitude = 36.88429922
 center_longtitude = 30.70221813
 
@@ -8,14 +11,18 @@ center_longtitude = 30.70221813
       long: center_longtitude + (i*0.01),
       depth: rand((0.5)..(150.0)),
       magnitude: rand((0.1)..(10.0)),
-      time: Time.now - rand(0..604800).seconds
+      magnitude_type: 'ML',
+      time: Time.now - rand(0..604800).seconds,
+      data_source_id: 1 # System
     },
     {
       lat: center_latitude - (i*0.01),
       long: center_longtitude - (i*0.01),
       depth: rand((0.5)..(150.0)),
       magnitude: rand((0.1)..(10.0)),
-      time: Time.now - rand(0..604800).seconds
+      magnitude_type: 'ML',
+      time: Time.now - rand(0..604800).seconds,
+      data_source_id: 1 # System
     }
   ])
 end
@@ -26,6 +33,8 @@ end
     long: rand((-180.0)..(180.0)),
     depth: rand((0.5)..(150.0)),
     magnitude: rand((0.1)..(10.0)),
-    time: Time.now - rand(0..604800).seconds
+    magnitude_type: 'ML',
+    time: Time.now - rand(0..604800).seconds,
+    data_source_id: 1 # System
   )
 end
