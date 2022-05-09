@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_04_123045) do
 
   create_table "earthquakes", force: :cascade do |t|
     t.decimal "lat", precision: 9, scale: 7, null: false
-    t.decimal "long", precision: 9, scale: 7, null: false
+    t.decimal "long", precision: 10, scale: 7, null: false
     t.decimal "depth", precision: 8, scale: 4
     t.decimal "magnitude", precision: 3, scale: 1, null: false
     t.datetime "time", null: false
