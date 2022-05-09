@@ -21,4 +21,3 @@ https://www.honeybadger.io/blog/ruby-code-loader-zeitwerk/
 
 # kaynaklar
 http://www.koeri.boun.edu.tr/scripts/lasteq.asp
-

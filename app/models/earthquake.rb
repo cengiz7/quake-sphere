@@ -10,18 +10,19 @@ class Earthquake < ApplicationRecord
   validates :magnitude, presence: true, numericality: true
   validates :time, presence: true
 
-  before_create :classify_earthquake
+  before_create :associate_earthquake
 
-  def classify_earthquake
+  def associate_earthquake
     near_quakes = Earthquake.near([self.lat, self.long], 5, units: :km)
-                                    .where.not(main_id: nil)
+                                    .where(main_id: nil)
                                     .where("time between ? and ?",
                                         self.time-15.seconds,
-                                        self.time+15.seconds)
+                                        self.time+15.seconds).to_a
 
-    if near_quakes.any?
-        quakes = near_quakes.pluck(:main_id)
-        # TODO complete
+    if near_quakes.one?
+        self.main_id = near_quakes.pluck(:id).first
+    elsif near_quakes.many?
+        self.main_id = near_quakes.min_by { |e| self.distance_to e }.id
     end
   end
 end
