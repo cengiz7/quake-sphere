@@ -3,10 +3,10 @@ require 'sidekiq-scheduler/web'
 
 
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  resources :earthquakes, only: [:index, :show]
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root to: 'earthquakes#index'
+
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     # Protect against timing attacks:
     # - See https://codahale.com/a-lesson-in-timing-attacks/
@@ -17,5 +17,5 @@ Rails.application.routes.draw do
       ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(password), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_PASSWORD"]))
   end if Rails.env.production?
   
-  mount Sidekiq::Web, at: "/sidekiq"
+  mount Sidekiq::Web, at: "/admin/sidekiq"
 end

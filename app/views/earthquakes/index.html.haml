@@ -1,0 +1,6 @@
+%div#globeViz
+
+- content_for :head do
+  %script{src: '//unpkg.com/three'}
+  %script{src: '//unpkg.com/globe.gl'}
+  = javascript_import_module_tag "earthquake"

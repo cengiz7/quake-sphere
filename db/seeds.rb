@@ -1,3 +1,5 @@
+# rake data_sources:seed_genres must be run before the seeds
+
 Earthquake.destroy_all
 
 # ANTALYA YAT LIMANI
