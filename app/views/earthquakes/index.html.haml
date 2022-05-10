@@ -1,6 +1,7 @@
-%div#globeViz
+%div#globeSphere
 
 - content_for :head do
+  -# maybe don't use yield, carry them to header
   %script{src: '//unpkg.com/three'}
   %script{src: '//unpkg.com/globe.gl'}
   = javascript_import_module_tag "earthquake"
