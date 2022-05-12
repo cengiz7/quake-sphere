@@ -5,6 +5,8 @@ const world = Globe()
   .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
   .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
   (document.getElementById('globeSphere'));
+  
+world.pointOfView({ lat: 36.88429922, lng: 30.70221813, altitude: 0.5 }, 2000)
 
 // custom globe material
 const globeMaterial = world.globeMaterial();
@@ -20,13 +22,24 @@ setTimeout(() => { // wait for scene to be populated (asynchronously)
   directionalLight && directionalLight.position.set(1, 1, 1); // change light position to see the specularMap's effect
 });
 
+function deneme(label, event, options) {
+  console.log(label)
+  gData.push({
+    lat: 50.88429922,
+    lng: 35.70221813,
+    maxR: 1.5,
+    propagationSpeed: -0.9,
+    repeatPeriod: 350,
+  })
+  world.labelsData(gData)
+}
 
 let gData = [
   {
     lat: 36.88429922,
     lng: 30.70221813,
-    maxR: 1.5,
-    propagationSpeed: -0.9,
+    maxR: 1,
+    propagationSpeed: 0.8,
     repeatPeriod: 350,
   }
 ]
@@ -57,8 +70,8 @@ world
   .labelColor(() => 'rgba(255, 50, 50, 0.75)')
   .labelResolution(64)
   .labelAltitude(ringAltitude + 0.001) // prevent ring waves from cut. the label anim.
-  .onLabelRightClick( (label, event, options) => {
-    console.log(label)
-  })
+  .onLabelRightClick(deneme)
 
-world.pointOfView({ lat: 36.88429922, lng: 30.70221813, altitude: 0.7 }, 2000)
+
+setTimeout(()=>{world.pointOfView({ lat: 56.88429922, lng: 60.70221813, altitude: 0.7 }, 2000)
+}, 5000)

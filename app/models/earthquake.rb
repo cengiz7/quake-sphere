@@ -14,6 +14,7 @@ class Earthquake < ApplicationRecord
   # validates_uniqueness_of :data_source, :scope => [:lat, :long, :depth, :magnitude, :time]
 
   before_create :associate_earthquake
+  after_create_commit :broadcast_quake
 
   def associate_earthquake
     near_quakes = Earthquake.near([self.lat, self.long], 5, units: :km)
@@ -37,5 +38,10 @@ class Earthquake < ApplicationRecord
         lat: s.lat, long: s.long, depth: s.depth,
         magnitude: s.magnitude, time: s.time,
         data_source_id: s.data_source_id).any?
+  end
+
+  
+  def broadcast_quake
+    ActionCable.server.broadcast( 'earthquake_channel', self.as_json )
   end
 end
