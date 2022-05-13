@@ -11,6 +11,8 @@ class Earthquake < ApplicationRecord
   validates :magnitude, presence: true, numericality: true
   validates :time, presence: true
 
+  scope :mains, -> { where(main_id: nil) }
+  scope :sub_records, -> { where.not(main_id: nil) }
   scope :today, -> { where('time > ?', Time.now.beginning_of_day) }
   scope :last_three_days, -> { where('time > ?', Time.now - 3.days) }
   scope :this_month, -> { where('time > ?', Time.now.last_month.beginning_of_month) }
@@ -18,7 +20,8 @@ class Earthquake < ApplicationRecord
                                                        Time.now.last_month.end_of_month) }
 
   before_create :associate_earthquake
-  after_create_commit :broadcast_quake
+  # TODO:
+  # after_create_commit :broadcast_quake 
 
   def associate_earthquake
     near_quakes = Earthquake.near([self.lat, self.long], 5, units: :km)
@@ -44,7 +47,11 @@ class Earthquake < ApplicationRecord
         data_source_id: s.data_source_id).any?
   end
 
-  
+
+  def serialize
+    EarthquakeSerializer.new(self)
+  end
+
   def broadcast_quake
     ActionCable.server.broadcast( 'earthquake_channel', self.as_json )
   end

@@ -21,3 +21,9 @@ https://www.honeybadger.io/blog/ruby-code-loader-zeitwerk/
 
 # kaynaklar
 http://www.koeri.boun.edu.tr/scripts/lasteq.asp
+
+Earthquake.last.as_json(include: { data_source: {only: [:name, :description, :url]}})
+
+ids = Earthquake.last_three_days.sub_records.select(:main_id).distinct.pluck(:main_id)
+
+EarthquakeSerializer.new(Earthquake.find(1480)).as_json
