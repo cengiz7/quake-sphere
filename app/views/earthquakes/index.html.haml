@@ -1,3 +1,5 @@
+<div id="item" data-base-price="<%=j @item.base_price.to_json.html_safe %>"></div>
+%div#room{'data-room': cookies.encrypted[:token]}
 %div#globeSphere
 
 - content_for :head do

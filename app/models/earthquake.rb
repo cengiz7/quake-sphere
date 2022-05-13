@@ -10,8 +10,12 @@ class Earthquake < ApplicationRecord
   validates :depth, presence: true, numericality: true
   validates :magnitude, presence: true, numericality: true
   validates :time, presence: true
-  # prevent save the same record from the same data source
-  # validates_uniqueness_of :data_source, :scope => [:lat, :long, :depth, :magnitude, :time]
+
+  scope :today, -> { where('time > ?', Time.now.beginning_of_day) }
+  scope :last_three_days, -> { where('time > ?', Time.now - 3.days) }
+  scope :this_month, -> { where('time > ?', Time.now.last_month.beginning_of_month) }
+  scope :last_month, -> { where('time between ? and ?',Time.now.last_month.beginning_of_month,
+                                                       Time.now.last_month.end_of_month) }
 
   before_create :associate_earthquake
   after_create_commit :broadcast_quake

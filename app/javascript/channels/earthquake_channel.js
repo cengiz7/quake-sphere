@@ -1,6 +1,9 @@
 import consumer from "channels/consumer"
 
-consumer.subscriptions.create("EarthquakeChannel", {
+
+console.log(document.getElementById("room").attributes.getNamedItem("data-room"))
+let room = document.getElementById("room").attributes.getNamedItem("data-room").value
+consumer.subscriptions.create({channel: "EarthquakeChannel", room: room}, {
   connected() {
     // Called when the subscription is ready for use on the server
     console.log("Connected to Earthquake channel.");
