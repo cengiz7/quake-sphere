@@ -7,11 +7,9 @@ consumer.subscriptions.create({channel: "EarthquakeChannel", room: room}, {
   connected() {
     // Called when the subscription is ready for use on the server
     console.log("Connected to Earthquake channel.");
-
-    this.perform("my_method"); 
-
+    //this.perform("my_method"); 
     // channel.receive
-    this.send({ msg: "new connection" }); 
+    // this.send({ msg: "new connection" }); 
   },
 
   disconnected() {
@@ -21,6 +19,9 @@ consumer.subscriptions.create({channel: "EarthquakeChannel", room: room}, {
   received(data) {
     // Called when there's incoming data on the websocket for this channel
     console.log(data)
+    window.globe.prepareQuakeData(data)
+    window.globe.refreshQuakes()
+    console.log(window.globe)
   },
 
   sending(data) {

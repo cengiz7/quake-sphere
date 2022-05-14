@@ -2,3 +2,8 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "channels"
+import QuakeSphere from "earthquake"
+
+var globe = new QuakeSphere([]);
+
+window.globe = globe

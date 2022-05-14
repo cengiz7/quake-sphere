@@ -2,8 +2,8 @@ class Earthquake < ApplicationRecord
   reverse_geocoded_by :lat, :long
 
   belongs_to :main, class_name: 'Earthquake', optional: true
-  has_many   :sub_records, class_name: 'Earthquake', foreign_key: 'main_id'
   belongs_to :data_source
+  has_many   :sub_records, class_name: 'Earthquake', foreign_key: 'main_id'
 
   validates :lat, presence: true, numericality: { in: -90..90 }
   validates :long, presence: true, numericality: { in: -180..180 }
@@ -11,6 +11,7 @@ class Earthquake < ApplicationRecord
   validates :magnitude, presence: true, numericality: true
   validates :time, presence: true
 
+  scope :ordered, -> { order("time desc") }
   scope :mains, -> { where(main_id: nil) }
   scope :sub_records, -> { where.not(main_id: nil) }
   scope :today, -> { where('time > ?', Time.now.beginning_of_day) }
@@ -19,12 +20,14 @@ class Earthquake < ApplicationRecord
   scope :last_month, -> { where('time between ? and ?',Time.now.last_month.beginning_of_month,
                                                        Time.now.last_month.end_of_month) }
 
+
+
   before_create :associate_earthquake
-  # TODO:
-  # after_create_commit :broadcast_quake 
+  # TODO: after_create_commit :broadcast_quake 
+
 
   def associate_earthquake
-    near_quakes = Earthquake.near([self.lat, self.long], 5, units: :km)
+    near_quakes = Earthquake.near([self.lat, self.long], 20, units: :km)
                                     .where(main_id: nil)
                                     .where("time between ? and ?",
                                         self.time-15.seconds,
