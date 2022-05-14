@@ -13,9 +13,9 @@ export default class QuakeSphere {
     this.shininess = 11
     this.ringResolution = 48
     this.ringAltitude = 0.0015
-    this.maxR = 1.5,
-    this.propagationSpeed = -0.9,
-    this.repeatPeriod = 350
+    this.maxR = 0.5,
+    this.propagationSpeed = 0.24,
+    this.repeatPeriod = 700
     this.ringColor = t => `rgba(255,255,0,1)` // `rgba(255,100,50,${Math.sqrt(1-t)})
 
     this.initializeWorld()
@@ -33,7 +33,7 @@ export default class QuakeSphere {
     .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
     .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
     .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-    (document.getElementById('globeSphere'))
+    (document.getElementById('globeSphere')) // TODO: reference
   }
 
   // custom globe material
@@ -55,24 +55,12 @@ export default class QuakeSphere {
     directionalLight && directionalLight.position.set(1, 1, 1);
   }
 
-  addQuakeData() {
-    this.quakeData.push({
-      lat: 50.88429922,
-      lng: 35.70221813,
-      maxR: 1.5,
-      propagationSpeed: -0.9,
-      repeatPeriod: 350,
-    })
-    this.refreshQuakes()
-  }
-
   handleMouseClick(label, event, options) {
     console.info("Mouse click handled.")
   }
 
   setGlobeRings() {
     this.world
-      .ringsData(this.quakeData) // TODO : tasi
       .ringColor(() => this.ringColor)
       .ringMaxRadius('maxR')
       .ringPropagationSpeed('propagationSpeed')
@@ -83,25 +71,23 @@ export default class QuakeSphere {
 
   setGlobeLabels() {
     this.world
-      .labelsData(this.quakeData) // TODO: tasi
       .labelLat(d => d.lat)
       .labelLng(d => d.lng)
       .labelLabel(d => `<b>${d.lat}</b> earthquakes in the past month:<ul><li>Hello</li><li>HMeeeello</li></ul>
                         <br><a href="google.com" target="_blank">Google.com</a>`)
       .labelText(d => '')
-      .labelSize(0.5)
-      .labelResolution(3)
-      .labelDotRadius(d => d.maxR / 2)
+      .labelSize(0.2)
+      .labelDotRadius(d => d.maxR / 4)
       .labelColor(() => 'rgba(255, 50, 50, 0.75)')
       .labelResolution(64)
       .labelAltitude(this.ringAltitude + 0.001) // prevent ring waves from cut. the label anim.
-      .onLabelClick(this.handleMouseClick())
-      .onLabelRightClick(this.handleMouseClick())
+      .onLabelClick(this.handleMouseClick)
+      .onLabelRightClick(this.handleMouseClick)
   }
 
   refreshQuakes() {
-    this.world.labelsData(this.quakeData)
     this.world.ringsData(this.quakeData)
+    this.world.labelsData(this.quakeData)
   }
 
   prepareQuakeData(data) {

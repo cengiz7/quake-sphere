@@ -27,7 +27,7 @@ class Earthquake < ApplicationRecord
 
 
   def associate_earthquake
-    near_quakes = Earthquake.near([self.lat, self.long], 20, units: :km)
+    near_quakes = Earthquake.near([self.lat, self.long], 60, units: :km)
                                     .where(main_id: nil)
                                     .where("time between ? and ?",
                                         self.time-15.seconds,

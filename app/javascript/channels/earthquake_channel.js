@@ -1,5 +1,9 @@
 import consumer from "channels/consumer"
+import QuakeSphere from "quake_sphere"
 
+var globe = new QuakeSphere([]);
+
+window.globe = globe
 
 console.log(document.getElementById("room").attributes.getNamedItem("data-room"))
 let room = document.getElementById("room").attributes.getNamedItem("data-room").value
@@ -19,9 +23,8 @@ consumer.subscriptions.create({channel: "EarthquakeChannel", room: room}, {
   received(data) {
     // Called when there's incoming data on the websocket for this channel
     console.log(data)
-    window.globe.prepareQuakeData(data)
-    window.globe.refreshQuakes()
-    console.log(window.globe)
+    globe.prepareQuakeData(data)
+    globe.refreshQuakes()
   },
 
   sending(data) {

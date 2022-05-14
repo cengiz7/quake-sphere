@@ -4,7 +4,7 @@ module ApplicationCable
 
     def connect
       # self.client_id = request.params[:client_id]
-      puts "token cookie", cookies.encrypted[:token].empty?
+      # puts "token cookie", cookies.encrypted[:token].empty?
       self.visitor_token = find_visitor_token
     end
 

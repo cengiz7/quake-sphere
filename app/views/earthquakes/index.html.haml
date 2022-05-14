@@ -1,4 +1,3 @@
-<div id="item" data-base-price="<%=j @item.base_price.to_json.html_safe %>"></div>
 %div#room{'data-room': cookies.encrypted[:token]}
 %div#globeSphere
 
@@ -6,4 +5,4 @@
   -# maybe don't use yield, carry them to header
   %script{src: '//unpkg.com/three'}
   %script{src: '//unpkg.com/globe.gl'}
-  = javascript_import_module_tag "earthquake"
+  -# = javascript_import_module_tag "earthquake"
