@@ -1,9 +1,3 @@
-
-//setTimeout(()=>{world.pointOfView({ lat: 56.88429922, lng: 60.70221813, altitude: 0.7 }, 2000)}, 5000)
-
-// window.world = world
-
-
 export default class QuakeSphere {
 
   constructor(data){
@@ -80,7 +74,7 @@ export default class QuakeSphere {
       .labelDotRadius(d => d.maxR / 4)
       .labelColor(() => 'rgba(255, 50, 50, 0.75)')
       .labelResolution(64)
-      .labelAltitude(this.ringAltitude + 0.001) // prevent ring waves from cut. the label anim.
+      .labelAltitude(this.ringAltitude) // prevent ring waves from cut. the label anim.
       .onLabelClick(this.handleMouseClick)
       .onLabelRightClick(this.handleMouseClick)
   }
