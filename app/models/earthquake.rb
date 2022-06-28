@@ -14,6 +14,7 @@ class Earthquake < ApplicationRecord
   scope :ordered, -> { order("time desc") }
   scope :mains, -> { where(main_id: nil) }
   scope :sub_records, -> { where.not(main_id: nil) }
+  scope :last_minute, -> { where('created_at > ?', Time.now - 60.seconds)}
   scope :today, -> { where('time > ?', Time.now.beginning_of_day) }
   scope :last_three_days, -> { where('time > ?', Time.now - 3.days) }
   scope :this_month, -> { where('time > ?', Time.now.last_month.beginning_of_month) }
@@ -56,6 +57,6 @@ class Earthquake < ApplicationRecord
   end
 
   def broadcast_quake
-    ActionCable.server.broadcast( 'earthquake_channel', self.as_json )
+    #ActionCable.server.broadcast( 'earthquake_channel', self.as_json )
   end
 end

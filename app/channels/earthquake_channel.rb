@@ -2,7 +2,7 @@ class EarthquakeChannel < ApplicationCable::Channel
   def subscribed
     # TODO validate room with enc cookie val
     # puts "Sub cookie", connection.find_visitor_token
-    stream_from "earthquakeChannel_#{params[:room]}"
+    stream_from "#{$quake_channel_name_prefix}:#{params[:room]}"
     initial_broadcast
   end
 
@@ -21,7 +21,7 @@ class EarthquakeChannel < ApplicationCable::Channel
   private
   def initial_broadcast
     ActionCable.server.broadcast(
-      "earthquakeChannel_#{params[:room]}",
+      "#{$quake_channel_name_prefix}:#{params[:room]}",
       Earthquake.ordered
                 .mains
                 .last(ENV.fetch("SHOW_LAST_QUAKE_COUNT", 50).to_i)

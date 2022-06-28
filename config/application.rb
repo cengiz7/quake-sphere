@@ -27,4 +27,6 @@ module QuakeSphere
     config.autoload_paths << Rails.root.join("lib/earthquake_scrapers")
     config.eager_load_paths << Rails.root.join("lib/earthquake_scrapers")
   end
+
+  $quake_channel_name_prefix = "earthquakeChannel"
 end

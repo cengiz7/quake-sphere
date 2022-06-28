@@ -92,4 +92,10 @@ export default class QuakeSphere {
       return dt
     })
   }
+
+  addQuakeData(data) {
+    // TODO: check quake ids and filter
+    this.quakeData = this.addQuakeData.concat(data)
+    this.refreshQuakes()
+  }
 }

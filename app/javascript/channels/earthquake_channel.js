@@ -6,7 +6,9 @@ var globe = new QuakeSphere([]);
 window.globe = globe
 
 console.log(document.getElementById("room").attributes.getNamedItem("data-room"))
-let room = document.getElementById("room").attributes.getNamedItem("data-room").value
+
+const room = document.getElementById("room").attributes.getNamedItem("data-room").value
+
 consumer.subscriptions.create({channel: "EarthquakeChannel", room: room}, {
   connected() {
     // Called when the subscription is ready for use on the server
@@ -17,14 +19,17 @@ consumer.subscriptions.create({channel: "EarthquakeChannel", room: room}, {
   },
 
   disconnected() {
-    // Called when the subscription has been terminated by the server
+    alert("Socket connection lost!")
   },
 
   received(data) {
-    // Called when there's incoming data on the websocket for this channel
     console.log(data)
-    globe.prepareQuakeData(data)
-    globe.refreshQuakes()
+    if(data.action === "automatic-feed"){
+      console.info("Incoming  Automatic feed ")
+    } else {
+      globe.prepareQuakeData(data)
+      globe.refreshQuakes()
+    }
   },
 
   sending(data) {

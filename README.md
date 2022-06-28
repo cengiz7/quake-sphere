@@ -13,5 +13,10 @@ Showing recent earthquakes on the 3D Planet Earth by Rails / three-Globe.gl js l
 - rake db:seed
 - bundle exec sidekiq -C config/sidekiq.yml 
 
+### Usage Notes
+- To display and run recurring jobs from the sidekiq dasboard [go to this link.](localhost:3000/admin/sidekiq/recurring-jobs)  
+  In development env you can access the page directly, however in other environments you have to use
+   your sidekiq credentials defined in .env file.
+
 Sources:
 - [Globe.gl](https://globe.gl/)

@@ -18,3 +18,12 @@ production:
     dead: false
     retry: 1
     enabled: false
+
+  LatestQuakes:
+    queue: default
+    class: EarthquakeDispatcherJob
+    include_metadata: true
+    every: 1 minutes
+    dead: false
+    retry: 1
+    enabled: false
