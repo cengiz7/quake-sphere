@@ -1,5 +1,6 @@
 %div#room{'data-room': cookies.encrypted[:token]}
 %div#globeSphere
+= render 'earthquakes/quake_filters'
 
 - content_for :head do
   -# maybe don't use yield, carry them to header

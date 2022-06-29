@@ -1,0 +1,12 @@
+.filters-main {
+  position: absolute;
+  top: 10%;
+  right: 1%;
+  width: 15%;
+  z-index: 999;
+  border-width: 3px;
+  border-style: solid;
+  border-color: yellow;
+  background-color: rgba(71, 68, 68, 0.32);
+  color: white;
+}

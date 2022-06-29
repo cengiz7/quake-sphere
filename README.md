@@ -18,5 +18,5 @@ Showing recent earthquakes on the 3D Planet Earth by Rails / three-Globe.gl js l
   In development env you can access the page directly, however in other environments you have to use
    your sidekiq credentials defined in .env file.
 
-Sources:
+#### Sources:
 - [Globe.gl](https://globe.gl/)

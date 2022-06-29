@@ -11,11 +11,11 @@ class EarthquakeChannel < ApplicationCable::Channel
   end
 
   def receive(data)
-    #puts ["Send Gelen data: ", data]
+    puts ["Send Gelen data: ", data]
   end
 
   def my_method(data)
-    #puts ["performdan gelen data: ", data]
+    puts ["performdan gelen data: ", data]
   end
 
   private

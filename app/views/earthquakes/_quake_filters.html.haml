@@ -1,0 +1,19 @@
+%div.filters-main#main
+  = form_with(url: nil,
+    class: "filters-container",
+    method: :get,
+    remote: true,
+    data: { controller: "filters", filters_target: "form", turbo: false }) do |f|
+
+    .filters-group
+      = f.label :category, "Filter by category"
+
+    .filters-group
+      = f.label :search, "Search"
+      = f.text_field :search,
+        { value: params[:search], data: { action: "filters#handleSubmit" } }
+
+    .filters-group
+      = f.label :search, "Search"
+      = f.text_field :other_search,
+        { value: params[:other_search], data: { action: "filters#handleSubmit" } }
