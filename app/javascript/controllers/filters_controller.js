@@ -23,6 +23,6 @@ export default class extends Controller {
     const formData = new FormData(this.formTarget)
     const formProps = Object.fromEntries(formData)
     console.warn(["Form values", formProps])
-    window.channel_consumer.filter(formProps)
+    window.channel_consumer.applyFilters(formProps)
   }
 }

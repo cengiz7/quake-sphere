@@ -14,12 +14,12 @@ export default class QuakeSphere {
 
     this.initializeWorld()
     this.setGlobeMaterial()
-    setTimeout(this.setLightDirection()) //???
+    setTimeout(this.setLightDirection()) //??? Todo
     this.setGlobeRings()
     this.setGlobeLabels()
 
-    this.world.pointOfView({ lat: 36.88429922, lng: 30.70221813, altitude: 0.5 }, 2000)
     this.refreshQuakes()
+    this.world.pointOfView({ lat: 36.88429922, lng: 30.70221813, altitude: 1 }, 2000)
   }
 
   initializeWorld() {

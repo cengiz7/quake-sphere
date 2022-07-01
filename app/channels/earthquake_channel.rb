@@ -14,11 +14,13 @@ class EarthquakeChannel < ApplicationCable::Channel
     puts ["Send Gelen data: ", data]
   end
 
-  def my_method(data)
-    puts ["performdan gelen data: ", data]
+  def apply_filter(data)
+    puts ["filtre verisi: ", data]
   end
 
   private
+
+  # TODO: send it with sidekiq job
   def initial_broadcast
     ActionCable.server.broadcast(
       "#{$quake_channel_name_prefix}:#{params[:room]}",

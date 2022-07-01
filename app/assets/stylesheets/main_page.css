@@ -1,7 +1,7 @@
 .filters-main {
   position: absolute;
   top: 10%;
-  right: 1%;
+  left: 1%;
   width: 15%;
   z-index: 999;
   border-width: 3px;

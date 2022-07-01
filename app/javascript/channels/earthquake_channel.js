@@ -14,9 +14,9 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
   connected() {
     // Called when the subscription is ready for use on the server
     console.log("Connected to Earthquake channel.");
-    this.perform("my_method", { msg: "new connection Cengiz" } ); 
+    //this.perform("my_method", { msg: "new connection Cengiz" } ); 
     // channel.receive
-    this.send({ msg: "new connection Cengiz" }); 
+    //this.send({ msg: "new connection Cengiz" }); 
   },
 
   disconnected() {
@@ -35,11 +35,12 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
     }
   },
 
-  filter(props) {
+  applyFilters(props) {
     console.info("form props alindi", props)
+    this.perform("apply_filter", props )
   },
 
   sending(data) {
-    console.log("sending",)
+    console.log("sending data: ", data) 
   }
 });
