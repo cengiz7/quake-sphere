@@ -1,8 +1,11 @@
+import * as THREE from 'three';
+import 'globe';
+
 export default class QuakeSphere {
 
-  constructor(data){
+  constructor(data) {
     this.quakeData = this.prepareQuakeData(data)
-    this.world = Globe()
+    this.world = Globe()(document.getElementById('globeSphere'))
     this.bumpScale = 12
     this.shininess = 11
     this.ringResolution = 48
@@ -24,10 +27,9 @@ export default class QuakeSphere {
 
   initializeWorld() {
     this.world
-    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-    .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-    (document.getElementById('globeSphere')) // TODO: reference
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
+      .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+      .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
   }
 
   // custom globe material

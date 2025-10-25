@@ -12,9 +12,7 @@ module QuakeSphere
     config.load_defaults 7.0
 
     config.cache_store = :redis_store, {
-      host: ENV["REDIS_HOST"],
-      port: ENV["REDIS_PORT"],
-      db: ENV["REDIS_DB"],
+      url: ENV["REDIS_URL"],
       namespace: "cache"
     }, { expires_in: 90.minutes }
 

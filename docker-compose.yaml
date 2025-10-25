@@ -1,0 +1,81 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=quakesphere
+      - POSTGRES_USER=quakesphere
+      - POSTGRES_DB=quakesphere
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quakesphere -d quakesphere"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  sidekiq:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    environment:
+      - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379/1
+      - SIDEKIQ_USERNAME=admin
+      - SIDEKIQ_PASSWORD=password
+    depends_on:
+      redis:
+        condition: service_started
+      db:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+
+  redis:
+    image: redis:7.2-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    command: bundle exec rails s -b 0.0.0.0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      sidekiq:
+        condition: service_started
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
+      - DATABASE_URL=postgres://quakesphere:quakesphere@db:5432/quakesphere
+      - REDIS_URL=redis://redis:6379/0
+      - SHOW_LAST_QUAKE_COUNT=50
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+
+volumes:
+  redis_data:
+  db_data:
+  bundle_cache:
