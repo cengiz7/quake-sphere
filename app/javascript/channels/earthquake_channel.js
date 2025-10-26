@@ -27,6 +27,7 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
     // TODO: filtreler aktifse yeni datayi renderlama
     // data action "filtered" ise renderla
     console.log(data)
+    alert('veri geldi')
     if(data.action === "automatic-feed"){
       console.info("Incoming  Automatic feed ")
     } else {
@@ -42,5 +43,26 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
 
   sending(data) {
     console.log("sending data: ", data) 
+  }
+});
+
+
+window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeChannel", room: 'general'}, {
+  connected() {
+    // Called when the subscription is ready for use on the server
+    console.log("Connected to Earthquake Main channel.");
+    //this.perform("my_method", { msg: "new connection Cengiz" } ); 
+    // channel.receive
+    //this.send({ msg: "new connection Cengiz" }); 
+  },
+
+  disconnected() {
+    alert("Socket connection lost!")
+  },
+
+  received(data) {
+    console.info('Main veri geldi', data)
+    globe.prepareQuakeData(data)
+    globe.refreshQuakes()
   }
 });

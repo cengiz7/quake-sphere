@@ -16,8 +16,9 @@ RUN groupadd -g $GID -o appuser && \
 # Set working directory
 WORKDIR /app
 
-# Set bundler path
-ENV BUNDLE_PATH /usr/local/bundle
+# Set bundler path and add bin to PATH
+ENV BUNDLE_PATH=/usr/local/bundle
+ENV PATH=/app/bin:$PATH
 
 # Grant permissions to appuser for bundle path and app dir
 RUN mkdir -p /usr/local/bundle && \
@@ -36,4 +37,4 @@ COPY --chown=appuser:appuser . .
 
 # Expose port and set default command
 EXPOSE 3000
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["sh", "-c", "rm -f tmp/pids/server.pid && bundle exec rails server -b 0.0.0.0"]

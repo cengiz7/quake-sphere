@@ -24,8 +24,9 @@ class Earthquake < ApplicationRecord
 
 
   before_create :associate_earthquake
-  # TODO: after_create_commit :broadcast_quake 
+  after_create_commit :broadcast_quake
 
+  GENERAL_QUAKE_CHANNEL = $quake_channel_name_prefix + ":general"
 
   def associate_earthquake
     near_quakes = Earthquake.near([self.lat, self.long], 60, units: :km)
@@ -57,6 +58,6 @@ class Earthquake < ApplicationRecord
   end
 
   def broadcast_quake
-    #ActionCable.server.broadcast( 'earthquake_channel', self.as_json )
+    ActionCable.server.broadcast( GENERAL_QUAKE_CHANNEL, [self.serialize] )
   end
 end

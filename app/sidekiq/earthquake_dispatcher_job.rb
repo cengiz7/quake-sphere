@@ -9,7 +9,7 @@ class EarthquakeDispatcherJob
 
     open_channels = Redis.new.pubsub("channels", "action_cable/VISITOR*")
 
-    open_channels.map! do |sub|
+    open_channels.each do |sub|
       ActionCable.server.broadcast(
         generate_channel_name(sub),
         {action: "automatic-feed", data: quakes}

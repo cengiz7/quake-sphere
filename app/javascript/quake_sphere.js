@@ -4,7 +4,8 @@ import 'globe';
 export default class QuakeSphere {
 
   constructor(data) {
-    this.quakeData = this.prepareQuakeData(data)
+    this.quakeData = []
+    this.prepareQuakeData(data)
     this.world = Globe()(document.getElementById('globeSphere'))
     this.bumpScale = 12
     this.shininess = 11
