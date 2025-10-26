@@ -30,7 +30,7 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
     if(data.action === "automatic-feed"){
       console.info("Incoming  Automatic feed ")
     } else {
-      globe.prepareQuakeData(data)
+      globe.addQuakeData(data)
       globe.refreshQuakes()
     }
   },
@@ -61,7 +61,7 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
 
   received(data) {
     console.info('Main veri geldi', data)
-    globe.prepareQuakeData(data)
+    globe.addQuakeData(data)
     globe.refreshQuakes()
   }
 });

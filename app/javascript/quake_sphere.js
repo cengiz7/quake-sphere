@@ -97,8 +97,7 @@ export default class QuakeSphere {
   }
 
   addQuakeData(data) {
-    // TODO: check quake ids and filter
-    this.quakeData = this.addQuakeData.concat(data)
-    this.refreshQuakes()
+    // TODO: process only the latest data and concat
+    this.prepareQuakeData([...new Set(this.quakeData.concat(data))])
   }
 }
