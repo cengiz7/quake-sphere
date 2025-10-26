@@ -3,8 +3,12 @@
 Showing recent earthquakes on the 3D Planet Earth by Rails / three-Globe.gl js libraries.
 
 ### Requirements
-- Redis
-- Postgresql installation with postgis extension enabled. Preferably [postgresql v12](https://computingforgeeks.com/how-to-install-postgis-on-ubuntu-linux/).
+#### Method 1 - Foreman
+  - Redis
+  - Postgresql installation with postgis extension enabled. Preferably [postgresql v12](https://computingforgeeks.com/how-to-install-postgis-on-ubuntu-linux/).
+
+#### Method 2 - Docker Compose
+  - use docker-comopose.yaml to run project.
 
 ### Setup
 - rake db:create

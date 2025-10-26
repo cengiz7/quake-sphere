@@ -20,7 +20,7 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
   },
 
   disconnected() {
-    alert("Socket connection lost!")
+    console.warn("Socket connection lost!")
   },
 
   received(data) {
@@ -57,7 +57,7 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
   },
 
   disconnected() {
-    alert("Socket connection lost!")
+    console.warn("Socket connection lost!")
   },
 
   received(data) {
