@@ -27,7 +27,6 @@ window.channel_consumer = consumer.subscriptions.create({channel: "EarthquakeCha
     // TODO: filtreler aktifse yeni datayi renderlama
     // data action "filtered" ise renderla
     console.log(data)
-    alert('veri geldi')
     if(data.action === "automatic-feed"){
       console.info("Incoming  Automatic feed ")
     } else {

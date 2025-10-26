@@ -7,8 +7,8 @@ export default class QuakeSphere {
     this.quakeData = []
     this.prepareQuakeData(data)
     this.world = Globe()(document.getElementById('globeSphere'))
-    this.bumpScale = 12
-    this.shininess = 11
+    this.bumpScale = 100
+    this.shininess = 12
     this.ringResolution = 48
     this.ringAltitude = 0.0015
     this.maxR = 0.5,
@@ -18,18 +18,22 @@ export default class QuakeSphere {
 
     this.initializeWorld()
     this.setGlobeMaterial()
-    setTimeout(this.setLightDirection()) //??? Todo
     this.setGlobeRings()
     this.setGlobeLabels()
 
     this.refreshQuakes()
     this.world.pointOfView({ lat: 36.88429922, lng: 30.70221813, altitude: 1 }, 2000)
+
+    window.addEventListener('resize', (event) => {
+      this.world.width([event.target.innerWidth])
+      this.world.height([event.target.innerHeight])
+    });
   }
 
   initializeWorld() {
     this.world
-      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-blue-marble.jpg')
-      .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+      .globeImageUrl('//localhost:3000/assets/Optimized-world-9720x4860.jpg')
+      .bumpImageUrl('//localhost:3000/assets/Optimized-topography-9720x4860.png')
       .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
   }
 
@@ -43,11 +47,7 @@ export default class QuakeSphere {
         globeMaterial.specular = new THREE.Color('Gray')
         globeMaterial.shininess = this.shininess
     })
-  }
 
-  setLightDirection() {
-    // TODO : not working
-    // change light position to see the specularMap's effect
     const directionalLight = this.world.scene().children.find(obj3d => obj3d.type === 'DirectionalLight');
     directionalLight && directionalLight.position.set(1, 1, 1);
   }
